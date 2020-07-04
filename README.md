@@ -39,7 +39,19 @@ git clone ...
 ## Obtaining Data Points (tbweights --> LAS)
 
 1. Train grammars for all treebank combinations of interest and for the number of seeds
-needed for the k-NN and random sampling experiments, e.g. 18 seeds.
+needed for the k-NN experiments.
+In the ACL 2020 paper, we use 9 seeds and explore all
+treebank combinations with 3 of the 4 usable UD v2.3
+treebanks for Czech, English and French in development.
+For final testing, we use the combination of all usable
+non-PUD treebanks.
+The choice of seeds is not critical as an
+exact reproduction of parser training is not possible
+because parallel training on GPUs randomises the
+order of numeric operations.
+(Models for the same seed tend to make the same
+predictions for a few epochs but then start to
+diverge noticeable.)
 `gen_train_multi-subset-3.py`,
 `../gen_pud_training.py`,
 `grove-worker-train-parser-t12.job`,
