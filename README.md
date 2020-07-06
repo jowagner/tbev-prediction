@@ -7,17 +7,31 @@ https://www.aclweb.org/anthology/2020.acl-main.778/
 
 ## Dependencies (and Installation Suggestions)
 
+The scripts currently assume that
+* this repository is located in `~/tbemb/tbev-prediction`
+* `python2`, `python3` and `python` executables are in `PATH` and `python` is Python 2
+
+TODO: re-construct what Python environments are needed and when they need to be activated
+
+
 ### UUParser with multi-treebank extension
 
 https://github.com/jowagner/uuparser/tree/tbemb
 
 ```
+cd ~/tbemb
 git clone ...
 cd uuparser
 git checkout tbemb
 ```
 
-### ElmoForManyLangs
+With some adjustments to the wrapper scripts for t
+
+### ELMoForManyLangs
+
+To replicate development results of the paper, ELMo-derived sentence representation are needed.
+For the winning model, this dependency can be skipped.
+
 
 ### KD-Tree
 
@@ -29,6 +43,10 @@ scripts folder:
 cd tbev-prediction/scripts
 git clone ...
 ```
+
+### `bounded_priority_queue.py`
+
+TODO: investigate is this still needed and can it be replaced with a standard module
 
 
 ## Prepare Treebanks
@@ -52,12 +70,18 @@ order of numeric operations.
 (Models for the same seed tend to make the same
 predictions for a few epochs but then start to
 diverge noticeable.)
-`gen_train_multi-subset-3.py`,
-`../gen_pud_training.py`,
-`grove-worker-train-parser-t12.job`,
-`grove-train-multi-en_ewt-subsets-3.job`,
-`ichec-train-multi-en_ewt-subsets-3.job`,
-`train-multi-en_ewt-subsets-3.sh`
+    * `gen_train_multi-subset-3.py`:
+      Writes a `.tfm` task-farming file with one command per line
+      training all multi-treebank models needed for development,
+      i.e. training on each combination of three treebanks of the 
+      four treebanks of each development language
+    * `gen_pud_training.py`: As above but for
+      testing and additionally writes a summary table to stdout.
+      Expects as input the output of `assess-pud-situation.sh`
+    * `grove-worker-train-parser-t12.job`:
+    * `grove-train-multi-en_ewt-subsets-3.job`:
+    * `ichec-train-multi-en_ewt-subsets-3.job`:
+    * `train-multi-en_ewt-subsets-3.sh`:
 
 2. Choose tbemb weights to try and generate parsing task list: `gen_tasks.py`
 (check `--help`), `../pick_candidate_wvec.py`, `ichec-gen-test.job`, `grove-gen-tasks-t12.job`
