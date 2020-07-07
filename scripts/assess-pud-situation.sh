@@ -12,13 +12,16 @@
 # or
 # ./assess-pud-situation.sh treebank-folder > pud-situation.txt
 
+
+PUD_LANGS=$(realpath pud-languages.txt)
+
 if [ -n $1 ] ; then
     cd $1
 fi
 
-ls -d UD_*PUD* | grep -o -E "UD_[^-]*" | cut -c4- > pud_languages.txt
+ls -d UD_*PUD* | grep -o -E "UD_[^-]*" | cut -c4- > $PUD_LANGS
 
-for L in `cat pud_languages.txt` ; do
+for L in `cat $PUD_LANGS` ; do
 
     echo == $L ==
     ls -ld UD_${L}*/* | fgrep PUD | fgrep -i readme
