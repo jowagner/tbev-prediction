@@ -51,7 +51,21 @@ TODO: investigate is this still needed and can it be replaced with a standard mo
 
 ## Prepare Treebanks
 
+It is recommended to place the UD folder in the project folder, e.g. via a symlink:
+```
+cd tbev-prediction
+ln -s $HOME/data/ud-treebanks-v2.3/
+```
+
+The name of the symlink must not contain whitespace as we use split() to parse
+intermediate outputs.
+
+TODO: Do we still need config/locations.sh?
+
+If replicating preliminary experiments with the 5 genres of the English Web Treebank:
 * Split EWT into genres: `split-en-ewt.py`
+
+If using a newer version than UD v2.3:
 * Add new treebank names and codes to `config/tbnames.tsv`
 
 ## Obtaining Data Points (tbweights --> LAS)
@@ -75,9 +89,15 @@ diverge noticeable.)
       training all multi-treebank models needed for development,
       i.e. training on each combination of three treebanks of the 
       four treebanks of each development language
+        ```
+        ```
     * `gen_pud_training.py`: As above but for
       testing and additionally writes a summary table to stdout.
       Expects as input the output of `assess-pud-situation.sh`
+        ```
+        scripts/assess-pud-situation.sh ud-treebanks-v2.3 > pud-situation.txt
+        scripts/gen_pud_training.py --treebank-folder ud-treebanks-v2.3 < pud-situation.txt > pud-training.tsv
+        ```
     * `grove-worker-train-parser-t12.job`:
     * `grove-train-multi-en_ewt-subsets-3.job`:
     * `ichec-train-multi-en_ewt-subsets-3.job`:
