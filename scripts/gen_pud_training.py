@@ -31,12 +31,19 @@ ignore_tbids = """
 ar_nyuad
 en_esl
 en_gumreddit
+en_sewta
+en_sewte
+en_sewtn
+en_sewtr
+en_sewtw
 fr_ftb
 fro_srcmf
 ja_bccwj
 qhe_hiencs
 swl_sslc
 """.split()
+
+ignore_concat_tbids = True
 
 
 tasks = open(options.taskfile, 'wb')
@@ -56,6 +63,7 @@ example_input = """
 """
 
 def most_frequent_token(filename):
+    sys.stderr.write('Checking most frequent token in %s\n' %filename)
     t2f = {}
     for line in open(filename, 'r'):
         if '\t' in line:
@@ -94,41 +102,49 @@ while True:
                     options.epochs, options.deadline
                 ))
         language = None
+        sys.stderr.write('\n')
     if not line:
         break
     if line.startswith('==') or not language:
         language = line.split()[1]
+        sys.stderr.write('\n== %s ==\n' %language)
         test_tbid = '?'
         num_tr = 0
         num_dev = 0
         training = []
-    ignore = False
-    for tbid in ignore_tbids:
-        if '/%s-ud' %tbid in line:
-            ignore = True
-            break
-    if ignore:
+    if not '/' in line:
+        #sys.stderr.write('Ignoring line without /\n')
+        continue
+    _, filename = line.rsplit('/', 1)
+    if filename.startswith('README'):
+        #sys.stderr.write('Ignoring README\n')
+        continue
+    tbid, _, dataset_type = filename.split('-')
+    sys.stderr.write('\ntbid = %s\n' %tbid)
+    if tbid in ignore_tbids:
+        sys.stderr.write('Ignoring tbid in ignore_tbids\n')
+        continue
+    if ignore_concat_tbids and tbid.endswith('_concat'):
+        sys.stderr.write('Ignoring concat tbid\n')
         continue
     fields = line.split()
     if len(fields) > 5:
-        filename = line.split()[-1]
+        rel_path = line.split()[-1]
         tr_path = '/'.join((
             options.treebank_folder,
-            filename,
+            rel_path,
         ))
-        if '/' in filename and most_frequent_token(tr_path) in ('_', 'UNK'):
-            sys.stderr.write('Warning: Excluding %r with most frequent token in (_, UNK). Please add to ignore_tbids.\n' %filename)
+        if '/' in rel_path and most_frequent_token(tr_path) in ('_', 'UNK'):
+            sys.stderr.write('Warning: Excluding %r with most frequent token in (_, UNK). Please add to ignore_tbids.\n' %rel_path)
             continue
-    if 'PUD' in line:
-        if 'test.conllu' in line:
-            line = line.replace('/', ' ')
-            line = line.replace('-', ' ')
-            test_tbid = line.split()[-3]
-    elif 'train.conllu' in line:
+    dataset_type = dataset_type.split('.')[0]
+    sys.stderr.write('dataset_type = %s\n' %dataset_type)
+    if tbid.endswith('_pud'):
+        if dataset_type == 'test':
+            test_tbid = tbid
+    elif dataset_type == 'train':
         num_tr += 1
-        line = line.replace('/', ' ')
-        line = line.replace('-', ' ')
-        training.append(line.split()[-3])
-    elif 'dev.conllu' in line:
+        training.append(tbid)
+    elif dataset_type == 'dev':
         num_dev += 1
 
