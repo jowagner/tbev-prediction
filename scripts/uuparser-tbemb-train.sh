@@ -20,7 +20,7 @@ if [ -n "$5" ]; then
     WORKER_ID=$5
 fi
 
-test -z ${PRJ_DIR} && PRJ_DIR=${HOME}/ADAPT-DCU
+test -z ${PRJ_DIR} && PRJ_DIR=${HOME}/tbemb/tbev-prediction
 source ${PRJ_DIR}/config/locations.sh
 
 MEM=256 # initial amount of dynet memory; will be increased automatically by dynet if needed

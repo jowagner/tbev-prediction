@@ -29,7 +29,7 @@ class Options:
         else:
             self.prj_dir = '%s/tbemb/tbev-prediction' %os.environ['HOME']
         self.epochs = 60
-        self.parser = 'uuparser'
+        self.parser = 'uuparser-tbemb'
         self.deadline = time.time() + 6.5 * 24 * 3600
         self.first_seed = 300
         self.n_seeds = 9
@@ -54,7 +54,7 @@ class Options:
     def make_adjustments(self):
         if not self.taskfile:
             self.taskfile = self.taskfile_template %self.parser
-        self.script = '%s/scripts/run_%s_multi.sh' %(self.prj_dir, self.parser)
+        self.script = '%s/scripts/%s-train.sh' %(self.prj_dir, self.parser)
         self.seeds = range(self.first_seed, self.first_seed + self.n_seeds)
 
     def print_notifications(self):
@@ -105,8 +105,8 @@ class Options:
                 self.epochs = int(self.epochs/3)
             self.deadline = 0
             self.is_default_deadline = False
-        elif self.parser == 'uuparser':
-            # note we are not resetting epochs an deadline
+        elif self.parser == 'uuparser-tbemb':
+            # note we are not resetting epochs and deadline
             pass
         else:
             raise ValueError, 'unsupported parser %r' %self.parser
