@@ -1,9 +1,10 @@
 # Treebank Embedding Vector Prediction for Out-of-Domain Dependency Parsing
 
 Thanks for interest in our code for
-[Treebank Embedding Vectors for Out-of-domain Dependency Parsing](https://www.aclweb.org/anthology/2020.acl-main.778/)
+[Treebank Embedding Vectors for Out-of-domain Dependency Parsing](https://www.aclweb.org/anthology/2020.acl-main.778/).
 The code for the first step, training all required multi-treebank parsing models, is ready. 
-If you want to replicate the work asap you can start training these models now this is
+If you want to replicate the work asap you can start training these models now.
+This is
 independent of the remaining code and it easily takes a week.
 We aim to complete cleaning and making the code more easy to use by
  the end of July 2020.
