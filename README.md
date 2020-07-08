@@ -1,6 +1,6 @@
 # Treebank embedding vector prediction for out-of-domain dependency parsing
 
-Over the coming weeks, before ACL 2020, we add cleaned-up code here to reproduce experiments of
+Over the coming weeks, before end of July 2020, we add cleaned-up code here to reproduce experiments of
 
 Joachim Wagner, James Barry and Jennifer Foster. 2020. Treebank Embedding Vectors for Out-of-domain Dependency Parsing. In Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020).
 https://www.aclweb.org/anthology/2020.acl-main.778/
@@ -69,8 +69,6 @@ Below, we run scripts with `./<scriptname>` but they can also be called
 from other locations such as `workdir`.
 It is recommended to create a symlink to the `scripts` folder or to
 add it to the `PATH` variable.
-
-TODO: Do we still need config/locations.sh?
 
 If replicating preliminary experiments with the 5 genres of the English Web Treebank:
 * Split EWT into genres: `split-en-ewt.py`
