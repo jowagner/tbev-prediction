@@ -5,6 +5,8 @@ Thanks for interest in our code for
 The code for the first step, training all required multi-treebank parsing models, is ready. 
 If you want to replicate the work asap you can start training these models now this is
 independent of the remaining code and it easily takes a week.
+We aim to complete cleaning and making the code more easy to use by
+ the end of July 2020.
 
 For questions, please open an issue in this repository.
 
