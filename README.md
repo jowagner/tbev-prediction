@@ -1,9 +1,14 @@
-# Treebank embedding vector prediction for out-of-domain dependency parsing
+# Treebank Embedding Vector Prediction for Out-of-Domain Dependency Parsing
 
-Over the coming weeks, before end of July 2020, we add cleaned-up code here to reproduce experiments of
+Thanks for interest in our code for
+[Treebank Embedding Vectors for Out-of-domain Dependency Parsing](https://www.aclweb.org/anthology/2020.acl-main.778/)
+The code for the first step, training all required multi-treebank parsing models, is ready. 
+If you want to replicate the work asap you can start training these models now this is
+independent of the remaining code and it easily takes a week.
 
-Joachim Wagner, James Barry and Jennifer Foster. 2020. Treebank Embedding Vectors for Out-of-domain Dependency Parsing. In Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020).
-https://www.aclweb.org/anthology/2020.acl-main.778/
+For questions, please open an issue in this repository.
+
+If you use this code please cite the paper linked above.
 
 
 ## Dependencies (and Installation Suggestions)
@@ -11,6 +16,8 @@ https://www.aclweb.org/anthology/2020.acl-main.778/
 The scripts currently assume that
 * this repository is located in `~/tbemb/tbev-prediction`
 * `python2`, `python3` and `python` executables are in `PATH` and `python` is Python 2
+* ELMoForManyLangs is in `~/tbemb/ELMoForManyLangs`
+* UUParser with our multi-treebank extension is in `~/tbemb/uuparser`
 
 TODO: re-construct what Python environments are needed and when they need to be activated
 
