@@ -21,7 +21,23 @@ if [ -n "$5" ]; then
 fi
 
 test -z ${PRJ_DIR} && PRJ_DIR=${HOME}/tbemb/tbev-prediction
+
+if ! [ -e ${PRJ_DIR}/config/locations.sh ] ; then
+    echo "PRJ_DIR not correct"
+    exit 1
+fi
+
 source ${PRJ_DIR}/config/locations.sh
+
+if [ -z "$UD_TREEBANK_DIR" ] ; then
+    echo "UD_TREEBANK_DIR not set"
+    exit 1
+fi
+
+if [ -z "$RESULT_DIR" ] ; then
+    echo "RESULT_DIR not set"
+    exit 1
+fi
 
 MEM=256 # initial amount of dynet memory; will be increased automatically by dynet if needed
 
@@ -37,8 +53,17 @@ mkdir -p ${OUTDIR}/${FILE}
 STATS_DIR=${OUTDIR}/stats
 mkdir -p ${STATS_DIR}
 
-hostname > ${STATS_DIR}/${FILE}.training.start
-test -n $WORKER_ID && echo $WORKER_ID >> ${STATS_DIR}/${FILE}.training.start
+LOG=${STATS_DIR}/${FILE}.training.start
+hostname > $LOG
+test -n $WORKER_ID && echo "worker: $WORKER_ID" >> $LOG
+echo "now:" $(date --iso=s) >> $LOG
+echo "parser: $PARSER" >> $LOG
+echo "mem: $MEM" >> $LOG
+echo "dynet options: $DYNET_OPTIONS" >> $LOG
+echo "file: $FILE" >> $LOG
+echo "outdir: $OUTDIR" >> $LOG
+echo "ud_treebank_dir: $UD_TREEBANK_DIR" >> $LOG
+echo "deadline: $DEADLINE" >> $LOG
 
 python ${PARSER}  \
     --dynet-seed ${SEED}  \
@@ -46,7 +71,7 @@ python ${PARSER}  \
     ${DYNET_OPTIONS} \
     --outdir ${OUTDIR}/${FILE}  \
     --modeldir ${OUTDIR}/${FILE} \
-    --datadir ${UD_CROSSMOR_DIR}  \
+    --datadir ${UD_TREEBANK_DIR} \
     --include ${FILE} \
     --epochs ${EPOCHS}  \
     --top-k-epochs 3  \
