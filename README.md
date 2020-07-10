@@ -131,8 +131,19 @@ diverge noticeable.)
       you may want to change the wrapper script to set dynet to use
       your GPU.)
 
-2. Choose tbemb weights to try and generate parsing task list: `gen_tasks.py`
-(check `--help`), `../pick_candidate_wvec.py`, `ichec-gen-test.job`, `grove-gen-tasks-t12.job`
+2. Choose tbemb weights to try and generate parsing task list:
+    * `gen_tasks.py`: Chooses the candidate treebank embedding vectors as
+      weighted averages of the fixed vectors and writes 24 worker files to
+      the folder `te-worker` to parse each data set with the candidate
+      vectors.
+      Check `--help` for options to change default.
+      Typical usage:
+        ```
+        mkdir te-worker
+        gen_tasks.py --collection en_ewt:en_gum:en_lines:en_partut
+        ```
+    * `../pick_candidate_wvec.py`,
+    * `ichec-gen-test.job`, `grove-gen-tasks-t12.job`
 
 For experiments with the k-NN method, do not use `--skip-indomain-parsing`
 of `gen_tasks.py` as k-NN needs parse results for the in-domain treebanks.
