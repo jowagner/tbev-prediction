@@ -50,6 +50,10 @@ For the winning model, this dependency can be skipped.
 
 ### KD-Tree
 
+Only needed for visualising the candidate vectors and LAS in weight space
+as in Figures 1 and 2 in the paper.
+Can be skipped if not using `render-graph.py`.
+
 https://github.com/stefankoegl/kdtree
 You can install this as a python module or simply place it in our
 scripts folder:
@@ -61,9 +65,8 @@ cd tbev-prediction/scripts
 ln -s ~/tbemb/kdtree/kdtree.py
 ```
 
-### `bounded_priority_queue.py`
-
-TODO: investigate is this still needed and can it be replaced with a standard module
+In our ACL 2020 paper, we used version 0.15 of kdtree, which further
+requires the file `bounded_priority_queue.py`.
 
 
 ## Prepare Treebanks
