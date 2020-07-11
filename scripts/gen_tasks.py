@@ -22,9 +22,9 @@ def print_usage():
     print
     print '\t--num-workers NUMBER    Split tasks over these many worker files (default: 24)'
     print '\t--worker-dir  FOLDER    Where to write the worker files (default: te-worker)'
-    print '\t--script      FILE      Task script (default: ./test-m-bist-multi-en_ewt-subsets-3.sh)'
+    print '\t--script      FILE      Task script (default: ./uuparser-tbemb-test.sh)'
     print '\t--tab-tasks             Use tabs to separate args in task lines (default: write shell commands)'
-    print '\t--parser      NAME      Substitute m-bist in the script template filename with this name'
+    print '\t--parser      NAME      Substitute uuparser-tbemb in the script template filename with this name'
     print '\t--skip-indomain-parsing Do no write tasks parsing training data (default: parse all data)'
     print '\t--filter-results        Read results table from stdin and do not generate same points again'
     print '\t--filter-use-training   Also read training results when building the filter (default: dev only)'
@@ -52,7 +52,7 @@ def print_usage():
 
 num_workers = 24
 opt_worker_dir = 'te-worker'
-script      = './test-m-bist-multi-en_ewt-subsets-3.sh'
+script      = './uuparser-tbemb-test.sh'
 opt_tab_tasks = False
 opt_filter_results = False
 opt_only_dev = True
@@ -130,7 +130,7 @@ while len(sys.argv) >= 2 and sys.argv[1][:1] == '-':
         opt_tab_tasks = True
     elif option == '--parser':
         name = sys.argv[1]
-        script = script.replace('m-bist', name)
+        script = script.replace('uuparser-tbemb', name)
         del sys.argv[1]
     elif option == '--filter-results':
         opt_filter_results = True
