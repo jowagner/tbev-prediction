@@ -8,6 +8,11 @@
    version published or distributed with this licence in a file
    “LICENSE.txt” present in its main folder (the “Software”).
 
+   Some files in this source code repository are distributed under
+   other licences. These are indicated in code comments near the
+   start of each file. The respective licence texts can be found
+   in the folder “other-licences”.
+
    IMPORTANT NOTICE TO ALL USERS:
 
    BY USING THE SOFTWARE, YOU AGREE TO BE BOUND BY THE TERMS OF
