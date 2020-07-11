@@ -55,8 +55,10 @@ You can install this as a python module or simply place it in our
 scripts folder:
 
 ```
+cd ~/tbemb
+git clone git@github.com:stefankoegl/kdtree.git
 cd tbev-prediction/scripts
-git clone ...
+ln -s ~/tbemb/kdtree/kdtree.py
 ```
 
 ### `bounded_priority_queue.py`
