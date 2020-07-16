@@ -16,11 +16,17 @@ If you use this code please cite the paper linked above.
 
 ## Dependencies (and Installation Suggestions)
 
-The scripts currently assume that
-* this repository is located in `~/tbemb/tbev-prediction`
+The scripts in thie repository currently assume the following:
+* This repository is located in `~/tbemb/tbev-prediction`.
+  We added code to support setting `PRJ_DIR` to an alternative location but
+  this has not been tested. Please let us know if you used this
+  variable to run in a different location successfully or if
+  you encounter problems.
 * `python2`, `python3` and `python` executables are in `PATH` and `python` is Python 2
-* ELMoForManyLangs is in `~/tbemb/ELMoForManyLangs`
-* UUParser with our multi-treebank extension is in `~/tbemb/uuparser`
+* ELMoForManyLangs is in `~/tbemb/ELMoForManyLangs`.
+  An alternative location can be configured in `tbev-prediction/config/locations.sh`.
+* UUParser with our multi-treebank extension is in `~/tbemb/uuparser`.
+  An alternative location can be configured in `tbev-prediction/config/locations.sh`.
 
 TODO: re-construct what Python environments are needed and when they need to be activated
 
@@ -112,6 +118,9 @@ diverge noticeable.)
       training all multi-treebank models needed for development,
       i.e. training on each combination of three treebanks of the 
       four treebanks of each development language.
+      | :warning: TODO             |
+      |:---------------------------|
+      | Adjust number of epochs for each language and remove deadline. |
       Add option `--epochs 20` or lower if you are pressed for time
       (the Czech models involving `cs_pdt` take quite long)
       and are ok with less accurate models
@@ -123,6 +132,13 @@ diverge noticeable.)
       `--max-sentence 1000` in the call to the parser
       inside `uuparser-tbemb-train.sh` (near the end)
       but this will change the balance of the data sets.
+      | :warning: TODO             |
+      |:---------------------------|
+      | The vocab is still quite big. Check that the same subset is
+      used in all epochs and the vocab is built only for the subset.
+      If not, the embedding table will contain entries that received
+      no or very little training. This could have bad effects on
+      performance. |
       Typical usage:
         ```
         gen_train_multi-subset-3.py
