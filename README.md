@@ -16,13 +16,13 @@ If you use this code please cite the paper linked above.
 
 ## Dependencies (and Installation Suggestions)
 
-The scripts in thie repository currently assume the following:
+The scripts in this repository currently assume the following:
 * This repository is located in `~/tbemb/tbev-prediction`.
   We added code to support setting `PRJ_DIR` to an alternative location but
   this has not been tested. Please let us know if you used this
   variable to run in a different location successfully or if
   you encounter problems.
-* `python2`, `python3` and `python` executables are in `PATH` and `python` is Python 2
+* `python2`, `python3` and `python` executables are in `PATH` and `python` is Python 2. If necessary, create symlinks or wrapper scripts with these names in a new folder and point to this folder at the start of `PATH`.
 * ELMoForManyLangs is in `~/tbemb/ELMoForManyLangs`.
   An alternative location can be configured in `tbev-prediction/config/locations.sh`.
 * UUParser with our multi-treebank extension is in `~/tbemb/uuparser`.
@@ -45,12 +45,14 @@ git checkout tbemb
 The script `uuparser-tbemb-create-virtualenv.sh` creates a `virtualenv` Python environment for
 running this parser. A list of Python dependencies can be found in it.
 
-TODO: The list seems to be bigger than needed. From memory, uuparser-tbemb only needs
+TODO: The list of Python packages
+seems to be bigger than needed. From memory, uuparser-tbemb only needs
 `numpy`, `dynet` and `cython`.
 
 ### ELMoForManyLangs
 
-To replicate development results of the paper, ELMo-derived sentence representation are needed.
+To replicate all
+development results of the paper, ELMo-derived sentence representation are needed.
 For the winning model, this dependency can be skipped.
 
 
@@ -77,8 +79,11 @@ requires the file `bounded_priority_queue.py`.
 
 ## Prepare Treebanks
 
-It is recommended to place the UD folder in the project folder, e.g. via a symlink:
+It is recommended to place the UD folder in the project folder or any
+other folder from which you plan to run the experiment,
+e.g. via a symlink:
 ```
+mkdir workdir
 cd workdir
 ln -s $HOME/data/ud-treebanks-v2.3/
 ```
@@ -96,6 +101,7 @@ If replicating preliminary experiments with the 5 genres of the English Web Tree
 
 If using a newer version than UD v2.3:
 * Add new treebank names and codes to `config/tbnames.tsv`
+
 
 ## Obtaining Data Points (tbweights --> LAS)
 
@@ -118,27 +124,12 @@ diverge noticeable.)
       training all multi-treebank models needed for development,
       i.e. training on each combination of three treebanks of the 
       four treebanks of each development language.
-      | :warning: TODO             |
-      |:---------------------------|
-      | Adjust number of epochs for each language and remove deadline. |
       Add option `--epochs 20` or lower if you are pressed for time
       (the Czech models involving `cs_pdt` take quite long)
       and are ok with less accurate models
-      (default is to train for 60 epochs).
+      (default is to train for 30 epochs).
       UUParser picks the best model from all trained epochs
       according to development data.
-      Further time savings at the cost of parser accuracy are possible by
-      adding
-      `--max-sentence 1000` in the call to the parser
-      inside `uuparser-tbemb-train.sh` (near the end)
-      but this will change the balance of the data sets.
-      | :warning: TODO             |
-      |:---------------------------|
-      | The vocab is still quite big. Check that the same subset is
-      used in all epochs and the vocab is built only for the subset.
-      If not, the embedding table will contain entries that received
-      no or very little training. This could have bad effects on
-      performance. |
       Typical usage:
         ```
         gen_train_multi-subset-3.py
@@ -152,7 +143,7 @@ diverge noticeable.)
       you may want to change the wrapper script to set dynet to use
       your GPU.)
 
-2. Choose tbemb weights to try and generate parsing task list:
+2. Choose weight vectors to try and generate the task list for parsing:
     * `gen_tasks.py`: Chooses the candidate treebank embedding vectors as
       weighted averages of the fixed vectors and writes 24 worker files to
       the folder `te-worker` to parse each data set with the candidate
