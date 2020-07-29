@@ -7,7 +7,7 @@ If you want to replicate the work asap you can start training these models now.
 This is
 independent of the remaining code and it easily takes a week.
 We aim to complete cleaning and making the code more easy to use by
- the end of July 2020.
+ the end of August 2020.
 
 For questions, please open an issue in this repository.
 
