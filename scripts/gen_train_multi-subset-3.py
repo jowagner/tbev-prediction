@@ -15,6 +15,9 @@ import time
 import common_gen_training
 
 options = common_gen_training.Options(
+    defaults = {
+        'epochs': 30,
+    },
     taskfile_template = '%s-dev-training.tfm',
     usage = """\
 ./gen_train_multi-subset-3.py
@@ -26,8 +29,8 @@ See source code of common_gen_training.py for options.
 tasks = open(options.taskfile, 'wb')
 
 for collection in [
-    ('fr_gsd',   'fr_partut', 'fr_sequoia', 'fr_spoken',),
     ('cs_cac',   'cs_cltt',  'cs_fictree', 'cs_pdt',),
+    ('fr_gsd',   'fr_partut', 'fr_sequoia', 'fr_spoken',),
     ('en_ewt',   'en_gum',   'en_lines',   'en_partut',),
 ]:
     k = len(collection)

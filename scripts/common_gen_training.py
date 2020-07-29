@@ -14,23 +14,23 @@ import time
 
 class Options:
 
-    def __init__(self, taskfile_template = '%s-training.tfm', usage = None):
+    def __init__(self, taskfile_template = '%s-training.tfm', usage = None, defaults = None):
         self.taskfile_template = taskfile_template
         self.usage = usage
-        self.set_defaults()
+        self.set_defaults(defaults)
         self.read_options()
         self.make_adjustments()
         self.print_notifications()
         self.check_requirements()
 
-    def set_defaults(self):
+    def set_defaults(self, defaults = None):
         if 'PRJ_DIR' in os.environ:
             self.prj_dir = os.environ['PRJ_DIR']
         else:
             self.prj_dir = '%s/tbemb/tbev-prediction' %os.environ['HOME']
         self.epochs = 60
         self.parser = 'uuparser-tbemb'
-        self.deadline = time.time() + 6.5 * 24 * 3600
+        self.deadline = 0
         self.first_seed = 300
         self.n_seeds = 9
         self.is_default_deadline = True
@@ -40,6 +40,9 @@ class Options:
         self.verbose = True
         self.debug = False
         self.help = False
+        if defaults:
+            for key in defaults:
+                setattr(self, key, defaults[key])
 
     def read_options(self):
         while len(sys.argv) >= 2 and sys.argv[1].startswith('-'):
