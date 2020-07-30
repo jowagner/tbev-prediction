@@ -147,22 +147,14 @@ diverge noticeable.)
       not change during development.
 
 2. Choose weight vectors to try and generate the task list for parsing:
-    * `gen_tasks.py`: Chooses the candidate treebank embedding vectors as
-      weighted averages of the fixed vectors and writes 24 worker files to
-      the folder `te-worker` to parse each data set with the candidate
-      vectors.
-      Check `--help` for options to change default.
-      Typical usage:
-        ```
-        mkdir te-worker
-        gen_tasks.py --collection en_ewt:en_gum:en_lines:en_partut
-        ```
     * `run_gen_tasks_for_dev_data_points.sh`: calls `gen_tasks.py` for
       the 3 development languages and with the weight space restricted
       as in the ACL 2020 paper.
       Note that `gen_tasks.py` option `--seed` was not used in the
       ACL 2020 experiments, making small deviations in the candidate
       set of treebank vectors unavoidable.
+      See `gen_tasks.py --help` and `explore-candidate-point-decay.sh`
+      for options to change the vector sampling.
 
 For experiments with the k-NN method, do not use `--skip-indomain-parsing`
 of `gen_tasks.py` as the results for the in-domain treebanks are needed
