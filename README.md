@@ -157,11 +157,16 @@ diverge noticeable.)
         mkdir te-worker
         gen_tasks.py --collection en_ewt:en_gum:en_lines:en_partut
         ```
-    * `../pick_candidate_wvec.py`,
-    * `ichec-gen-test.job`, `grove-gen-tasks-t12.job`
+    * `run_gen_tasks_for_dev_data_points.sh`: calls `gen_tasks.py` for
+      the 3 development languages and with the weight space restricted
+      as in the ACL 2020 paper.
+      Note that `gen_tasks.py` option `--seed` was not used in the
+      ACL 2020 experiments, making small deviations in the candidate
+      set of treebank vectors unavoidable.
 
 For experiments with the k-NN method, do not use `--skip-indomain-parsing`
-of `gen_tasks.py` as k-NN needs parse results for the in-domain treebanks.
+of `gen_tasks.py` as the results for the in-domain treebanks are needed
+as training data for the k-NN models.
 
 3. Parse both training data and dev data with the selected tbemb weights:
 `ichec-test-all.job` runs workers in te-worker/.
@@ -378,6 +383,13 @@ find tbemb-sampling/ | \
       If running in parallel with fewer workers than tasks consider moving
       Czech and Russian tasks to the top of the file to avoid long idle
       times of some of the workers near the end of the job.
+
+    * `run_gen_tasks_for_pud_data_points.sh`: calls `gen_tasks.py` with
+      options needed for PUD test set experiments, e.g. adjusting the
+      number of samples to the dimensionality of the treebank vector
+      weight space and switching off the box clipping used in development.
+      For the highest dimensionality 4, each language takes about half an
+      hour.
 
 
 ## Acknowledgements
