@@ -142,6 +142,9 @@ diverge noticeable.)
       (If you do not have access to strong server CPUs but have a GPU
       you may want to change the wrapper script to set dynet to use
       your GPU.)
+    * You can append the `.tfm` file for training parsing models needed for
+      testing later (see below) now as the choice of parsing models does
+      not change during development.
 
 2. Choose weight vectors to try and generate the task list for parsing:
     * `gen_tasks.py`: Chooses the candidate treebank embedding vectors as

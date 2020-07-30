@@ -26,6 +26,7 @@ RESULT_DIR=$HOME/tbemb/workdir/results
 UUPARSER_DIR=${HOME}/tbemb/uuparser/barchybrid
 ELMOFORMANYLANGS_DIR=${HOME}/tbemb/ELMoForManyLangs
 ELMO_MODEL_DIR=${HOME}/elmo
+VENV_TBEMB=${HOME}/tbemb/dynet-cpu-py27
 
 # deviations from the above defaults for specific users and systems
 
@@ -45,4 +46,6 @@ root*)
     true
     ;;
 esac
+
+SCRIPTS_DIR=${PRJ_DIR}/scripts
 
