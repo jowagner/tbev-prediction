@@ -13,8 +13,6 @@ NUM_CANDIDATES=49500
 test -z ${PRJ_DIR} && PRJ_DIR=${HOME}/tbemb/tbev-prediction
 source ${PRJ_DIR}/config/locations.sh
 
-mkdir -p te-worker
-
 echo "Collections of size 2"
 
 for COLLECTION in  \
@@ -26,18 +24,24 @@ for COLLECTION in  \
 ; do
     date
     echo ${COLLECTION}
-    ${SCRIPTS_DIR}/gen_tasks.py --debug           \
-	    --no-subsets                \
+    LCODE=$(echo ${COLLECTION} | cut -d_ -f1)
+    NAME=te-worker-pud-${LCODE}
+    mkdir -p ${NAME}
+    ${SCRIPTS_DIR}/gen_tasks.py --debug  \
+            --worker-dir ${NAME}         \
+	    --no-subsets                 \
 	    --no-box                      \
 	    --maximum-centre-distance 1.6  \
 	    --minimum-weight -0.4           \
             --collection ${COLLECTION}       \
 	    --tab-tasks --num-workers 1       \
 	    --num-points 23                    \
+            --seed 100                         \
 	    --median-interpolations 0          \
             --num-candidates ${NUM_CANDIDATES}  \
 	    > pud-samples-2-${COLLECTION}.log 2>&1
-    mv te-worker/worker-1000.sh pud-data-point-parsing-2-${COLLECTION}.tfm
+    mv ${NAME}/worker-1000.sh pud-data-point-parsing-2-${COLLECTION}.tfm
+    rmdir ${NAME}
 done
 
 echo "Collections of size 3"
@@ -48,7 +52,11 @@ for COLLECTION in  \
 ; do
     date
     echo ${COLLECTION}
-    ${SCRIPTS_DIR}/gen_tasks.py --debug           \
+    LCODE=$(echo ${COLLECTION} | cut -d_ -f1)
+    NAME=te-worker-pud-${LCODE}
+    mkdir -p ${NAME}
+    ${SCRIPTS_DIR}/gen_tasks.py --debug  \
+            --worker-dir ${NAME}         \
 	    --no-subsets                \
 	    --no-box                      \
 	    --maximum-centre-distance 1.6  \
@@ -56,10 +64,12 @@ for COLLECTION in  \
             --collection ${COLLECTION}      \
 	    --tab-tasks --num-workers 1      \
 	    --num-points 120                  \
+            --seed 100                         \
 	    --median-interpolations 21         \
             --num-candidates ${NUM_CANDIDATES}  \
 	    > pud-samples-3-${COLLECTION}.log 2>&1
-    mv te-worker/worker-1000.sh pud-data-point-parsing-3-${COLLECTION}.tfm
+    mv ${NAME}/worker-1000.sh pud-data-point-parsing-3-${COLLECTION}.tfm
+    rmdir ${NAME}
 done
 
 echo "Collections of size 4"
@@ -71,7 +81,11 @@ for COLLECTION in  \
 ; do
     date
     echo ${COLLECTION}
-    ${SCRIPTS_DIR}/gen_tasks.py --debug           \
+    LCODE=$(echo ${COLLECTION} | cut -d_ -f1)
+    NAME=te-worker-pud-${LCODE}
+    mkdir -p ${NAME}
+    ${SCRIPTS_DIR}/gen_tasks.py --debug  \
+            --worker-dir ${NAME}         \
 	    --no-subsets                \
 	    --no-box                      \
 	    --maximum-centre-distance 1.6  \
@@ -79,9 +93,11 @@ for COLLECTION in  \
             --collection ${COLLECTION}      \
 	    --tab-tasks --num-workers 1      \
 	    --num-points 320                  \
+            --seed 100                         \
 	    --median-interpolations 9          \
             --num-candidates ${NUM_CANDIDATES}  \
 	    > pud-samples-4-${COLLECTION}.log 2>&1
-    mv te-worker/worker-1000.sh pud-data-point-parsing-4-${COLLECTION}.tfm
+    mv ${NAME}/worker-1000.sh pud-data-point-parsing-4-${COLLECTION}.tfm
+    rmdir ${NAME}
 done
 
