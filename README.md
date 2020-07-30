@@ -151,6 +151,9 @@ diverge noticeable.)
       treebank embedding vectors as weighted averages of the fixed vectors
       and writes taskfarming files for each development language.
       The weight space is restricted as in the ACL 2020 paper.
+      Remove option `--tab-tasks` from the script's call to `gen_tasks.py`
+      to obtain shell commands in the `.tfm` file, rather than
+      tab-separated lists of command arguments.
       Note that the option `--seed` of `gen_tasks.py`, which is called in
       this script, was not used in the
       ACL 2020 experiments, making small deviations in the candidate
@@ -161,6 +164,8 @@ diverge noticeable.)
       out-of-domain experiment but this option was **not** used in the
       ACL 2020 experiment as in-domain results were used as training data
       for the k-NN models.
+      TODO: produce more clear log output: log all points and clearly mark
+      rejected points
 
 3. Parse both training data and dev data with the selected tbemb weights:
 `ichec-test-all.job` runs workers in te-worker/.
