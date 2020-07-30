@@ -27,7 +27,7 @@ for COLLECTION in  \
     LCODE=$(echo ${COLLECTION} | cut -d_ -f1)
     NAME=te-worker-pud-${LCODE}
     mkdir -p ${NAME}
-    ${SCRIPTS_DIR}/gen_tasks.py --debug  \
+    ${SCRIPTS_DIR}/gen_tasks.py   \
             --worker-dir ${NAME}         \
 	    --no-subsets                 \
 	    --no-box                      \
@@ -39,7 +39,7 @@ for COLLECTION in  \
             --seed 100                         \
 	    --median-interpolations 0          \
             --num-candidates ${NUM_CANDIDATES}  \
-	    > pud-samples-2-${COLLECTION}.log 2>&1
+	    > pud-samples-2-${COLLECTION}.log
     mv ${NAME}/worker-1000.sh pud-data-point-parsing-2-${COLLECTION}.tfm
     rmdir ${NAME}
 done
@@ -55,7 +55,7 @@ for COLLECTION in  \
     LCODE=$(echo ${COLLECTION} | cut -d_ -f1)
     NAME=te-worker-pud-${LCODE}
     mkdir -p ${NAME}
-    ${SCRIPTS_DIR}/gen_tasks.py --debug  \
+    ${SCRIPTS_DIR}/gen_tasks.py   \
             --worker-dir ${NAME}         \
 	    --no-subsets                \
 	    --no-box                      \
@@ -67,7 +67,7 @@ for COLLECTION in  \
             --seed 100                         \
 	    --median-interpolations 21         \
             --num-candidates ${NUM_CANDIDATES}  \
-	    > pud-samples-3-${COLLECTION}.log 2>&1
+	    > pud-samples-3-${COLLECTION}.log
     mv ${NAME}/worker-1000.sh pud-data-point-parsing-3-${COLLECTION}.tfm
     rmdir ${NAME}
 done
@@ -84,7 +84,7 @@ for COLLECTION in  \
     LCODE=$(echo ${COLLECTION} | cut -d_ -f1)
     NAME=te-worker-pud-${LCODE}
     mkdir -p ${NAME}
-    ${SCRIPTS_DIR}/gen_tasks.py --debug  \
+    ${SCRIPTS_DIR}/gen_tasks.py   \
             --worker-dir ${NAME}         \
 	    --no-subsets                \
 	    --no-box                      \
@@ -96,7 +96,7 @@ for COLLECTION in  \
             --seed 100                         \
 	    --median-interpolations 9          \
             --num-candidates ${NUM_CANDIDATES}  \
-	    > pud-samples-4-${COLLECTION}.log 2>&1
+	    > pud-samples-4-${COLLECTION}.log
     mv ${NAME}/worker-1000.sh pud-data-point-parsing-4-${COLLECTION}.tfm
     rmdir ${NAME}
 done

@@ -37,7 +37,7 @@ for COLLECTION in \
         --worker-dir ${NAME}         \
         --tab-tasks                  \
         --collection ${COLLECTION}   \
-        > dev-samples-${COLLECTION}.log 2>&1 
+        > dev-samples-${COLLECTION}.log
     mv ${NAME}/worker-1000.sh dev-data-point-parsing-${LCODE}.tfm
     rmdir ${NAME}
 done

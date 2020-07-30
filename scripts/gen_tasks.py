@@ -79,7 +79,7 @@ opt_help     = False
 opt_debug    = False
 num_points_step_1 = 21     # number of points to fill in based on interpolation of neighbouring triangle median points with similar rank
 
-while len(sys.argv) >= 2 and sys.argv[1][:1] == '-':
+while len(sys.argv) >= 2 and sys.argv[1].startswith('-') and len(sys.argv[1]) > 1:
     option = sys.argv[1]
     del sys.argv[1]
     if option in ('--help', '-h'):
@@ -181,7 +181,12 @@ if opt_help:
     print_usage()
     sys.exit(0)
 
+if opt_debug:
+    sys.stderr.write('Debugging output requested\n')
+
 if opt_seed:
+    if opt_debug:
+        sys.stderr.write('Seeding random number generator with seed %d\n' %opt_seed)
     random.seed(opt_seed)
 
 if opt_decay_strength <= 0.0:
@@ -252,7 +257,8 @@ if len(sys.argv) > 2:
             points_inside_selected_space.append((x, y))
         count += 1
     tsv.close()
-    sys.stderr.write('Added %d points\n' %count)
+    if opt_debug:
+        sys.stderr.write('Added %d points from file %s\n' %(count, sys.argv[2]))
     skip_triangle_median = True
 
 ignore = {}
@@ -352,7 +358,7 @@ def add_point_if_not_too_close_and_write_tasks_if_in_selected_space(weights):
     if opt_project_points:
         x, y, z = project_3_weights.project(weights)
         if abs(z) > 0.001:
-            sys.stderr.write('Large deviation from plane: %.6f\n' %z)
+            sys.stderr.write('Warning: Large deviation from plane: %.6f\n' %z)
         is_in_selected_space = point_is_inside_selected_space(weights, (x,y))
         d = nn_distance(weights, pp=(x,y))
     else:
@@ -360,7 +366,8 @@ def add_point_if_not_too_close_and_write_tasks_if_in_selected_space(weights):
         d = nn_distance(weights)
     # check point is not too close to existing point
     if d < 0.001:
-        sys.stderr.write('Ignoring new point that has NN with d = %.6f\n' %d)
+        if opt_debug:
+            sys.stderr.write('Ignoring new point that has NN with d = %.6f\n' %d)
         return
     if is_in_selected_space:
         if opt_project_points:

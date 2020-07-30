@@ -147,18 +147,20 @@ diverge noticeable.)
       not change during development.
 
 2. Choose weight vectors to try and generate the task list for parsing:
-    * `run_gen_tasks_for_dev_data_points.sh`: calls `gen_tasks.py` for
-      the 3 development languages and with the weight space restricted
-      as in the ACL 2020 paper.
-      Note that `gen_tasks.py` option `--seed` was not used in the
+    * `run_gen_tasks_for_dev_data_points.sh`: Chooses the candidate
+      treebank embedding vectors as weighted averages of the fixed vectors
+      and writes taskfarming files for each development language.
+      The weight space is restricted as in the ACL 2020 paper.
+      Note that the option `--seed` of `gen_tasks.py`, which is called in
+      this script, was not used in the
       ACL 2020 experiments, making small deviations in the candidate
       set of treebank vectors unavoidable.
       See `gen_tasks.py --help` and `explore-candidate-point-decay.sh`
       for options to change the vector sampling.
-
-For experiments with the k-NN method, do not use `--skip-indomain-parsing`
-of `gen_tasks.py` as the results for the in-domain treebanks are needed
-as training data for the k-NN models.
+      The option `--skip-indomain-parsing` may sound right for
+      out-of-domain experiment but this option was **not** used in the
+      ACL 2020 experiment as in-domain results were used as training data
+      for the k-NN models.
 
 3. Parse both training data and dev data with the selected tbemb weights:
 `ichec-test-all.job` runs workers in te-worker/.
