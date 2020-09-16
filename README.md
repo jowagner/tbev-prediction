@@ -28,7 +28,9 @@ The scripts in this repository currently assume the following:
 * UUParser with our multi-treebank extension is in `~/tbemb/uuparser`.
   An alternative location can be configured in `tbev-prediction/config/locations.sh`.
 
-TODO: re-construct what Python environments are needed and when they need to be activated
+TODO:
+* re-construct what Python environments are needed and when they need to be activated
+* Our implementation of Attardi and Dell'Orletta (2009)'s linear tree combiner seems to be used here. Why?
 
 
 ### UUParser with Our Multi-Treebank Extension
