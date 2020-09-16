@@ -30,7 +30,6 @@ The scripts in this repository currently assume the following:
 
 TODO:
 * re-construct what Python environments are needed and when they need to be activated
-* Provide dummy script for the parse tree combiner as we here only explore scenarios with 1 system output. Add warning in main script if hard-coded settings are changed.
 
 
 ### UUParser with Our Multi-Treebank Extension
@@ -56,6 +55,16 @@ seems to be bigger than needed. From memory, uuparser-tbemb only needs
 To replicate all
 development results of the paper, ELMo-derived sentence representation are needed.
 For the winning model, this dependency can be skipped.
+
+### Linear Tree Combiner
+
+https://github.com/jowagner/ud-combination
+
+TODO: add instructions how to put / symlink this into the expected location
+
+Alternatively, a dummy script that uncompresses an input `.conllu.gz` file to
+a `.conllu` file using the same command line as our combiner should also work
+as we here only explore scenarios with 1 system output.
 
 
 ### KD-Tree
