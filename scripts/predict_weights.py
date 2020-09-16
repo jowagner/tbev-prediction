@@ -33,7 +33,7 @@ Options:
     --past-log-dir  FOLDER  read log files from FOLDER and exclude completed experiments and scenarios
 
     --drop-data  NUMBER     skip fraction of the data points and training items and adjust k and max_samples
-                            (default: 1.0)
+                            (default: 0.0 = use all data)
 
     --test-type  STRING     whether to test on the dev or test section of each treebank
                             (default: dev)
