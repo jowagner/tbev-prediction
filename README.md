@@ -30,7 +30,7 @@ The scripts in this repository currently assume the following:
 
 TODO:
 * re-construct what Python environments are needed and when they need to be activated
-* Our implementation of Attardi and Dell'Orletta (2009)'s linear tree combiner seems to be used here. Why?
+* Provide dummy script for the parse tree combiner as we here only explore scenarios with 1 system output. Add warning in main script if hard-coded settings are changed.
 
 
 ### UUParser with Our Multi-Treebank Extension
